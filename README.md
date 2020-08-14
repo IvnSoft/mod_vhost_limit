@@ -48,31 +48,31 @@ This is different for each system, so i will show how to install it in a Fedora 
 $ cp -f mod_vhost_limit.so /etc/httpd/modules/
 $ echo -e "\nLoadModule vhost_limit_module modules/mod_vhost_limit.so" >> /etc/httpd/conf.modules.d/00-base.conf
 $ systemctl restart httpd
-
+```
+<pre>
 $ tail /var/log/httpd/error_log
 
 [today's date] [suexec:notice] [pid 126265:tid 126265] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
-**`[today's date] [vhost_limit:notice] [pid 126265:tid 126265] mod_vhost_limit: Created SHM block at 0x7f5c6a55c008 , size 800`**
+<font color=red>[today's date] [vhost_limit:notice] [pid 126265:tid 126265] mod_vhost_limit: Created SHM block at 0x7f5c6a55c008 , size 800</font>
 [today's date] [lbmethod_heartbeat:notice] [pid 126265:tid 126265] AH02282: No slotmem from mod_heartmonitor
 [today's date] [http2:warn] [pid 126265:tid 126265] AH02951: mod_ssl does not seem to be enabled
 [today's date] [mpm_event:notice] [pid 126265:tid 126265] AH00489: Apache/2.4.43 (Fedora) configured -- resuming normal operations
 [today's date] [core:notice] [pid 126265:tid 126265] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
-
-```
+</pre>
 
 The highlighted line is the mod letting you know it is initialized with its own memory block.
 To make it DO something, you need to use the only directive supported (for now) inside a VirtualHost block :
 
-```apache
+<pre lang='apache'>
 <VirtualHost *>
 
   ServerName test.mvh.info
   DocumentRoot /var/www/html/
 
-  **`MaxVhostClients 3`**
+<font color=red>  MaxVhostClients 3</font>
 
 </VirtualHost>
-```
+</pre>
 
 And restart httpd/apache. 
 
