@@ -122,6 +122,8 @@ static int handle_r(request_rec *r)
   vhost_limit_conf *conf = (vhost_limit_conf *) ap_get_module_config(r->server->module_config, &vhost_limit_module);
   apr_pool_t *pool = r->pool;
 
+  if (conf == NULL) return DECLINED;
+
   data = (vh_data *) shm_pool->base;
   data = data + conf->sid;
 
