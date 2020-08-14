@@ -69,14 +69,15 @@ To make it DO something, you need to use the only directive supported (for now) 
   ServerName test.mvh.info
   DocumentRoot /var/www/html/
 
-<font color=red>  MaxVhostClients 3</font>
+  MaxVhostClients 3
 
 </VirtualHost>
 ```
 
-And restart httpd/apache. 
+And restart httpd/apache.
+<b>MaxVhostClients</b> will set a maximum number of connections to be accepted for that vhost.
 
-Everytime you get a visit to that Virtualhost, a per-vhost counter will increment. When that connection is finished, the counter will decrement. In this case, we are limiting the vhost to 3 simultaneous connections, and every excess visit will receive a HTTP_SERVICE_UNAVAILABLE response.
+Everytime you get a visit, a per-vhost counter will increment. When that connection is finished, the counter will decrement. In this case, we are limiting the vhost to 3 simultaneous connections, and every excess visit will receive a HTTP_SERVICE_UNAVAILABLE response.
 
 > Please note : Using a fastcgi script (e.g. mod_fcgi/php-fpm) might not close the connection immediately after finished. It might take a little longer. So if you are testing, have this in mind before thinking something broke.
 
