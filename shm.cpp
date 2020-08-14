@@ -37,7 +37,7 @@ c_shm_pool::c_shm_pool(apr_pool_t *p, apr_size_t shm_size)
   }
   memset(base, 0, retsize);
 	  
-  ap_log_error(APLOG_MARK, APLOG_ERR, 0, NULL, "%s: Created SHM block at 0x%pp , size %d",MOD_NAME, base, retsize);
+  ap_log_error(APLOG_MARK, APLOG_NOERRNO|APLOG_NOTICE, 0, NULL, "%s: Created SHM block at 0x%pp , size %d",MOD_NAME, base, retsize);
 
 }
 
