@@ -163,7 +163,7 @@ static int pre_close(conn_rec *c)
 
 void register_hooks(apr_pool_t* p)
 {
-  shm_pool = new c_shm_pool(p, (apr_size_t) sizeof(vh_data) * 100 );
+  shm_pool = new c_shm_pool(p, (apr_size_t) sizeof(vh_data) * 1024 );
   ap_hook_handler(handle_r, NULL, NULL, APR_HOOK_REALLY_FIRST);
 
   ap_hook_pre_close_connection(pre_close, NULL, NULL, APR_HOOK_REALLY_FIRST);
